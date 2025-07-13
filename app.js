@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import adminRoutes from "./routes/admin.js";
+import authRoutes from "./routes/auth.js";
+import shopRoutes from "./routes/shop.js";
 
 const app = express();
 
@@ -16,14 +18,14 @@ app.set("views", "./views"); // Set the directory for views (optional) //* ./vie
 
 dotenv.config();
 
-
 // Connect to MongoDB using the URI from environment variables
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 app.use("/admin", adminRoutes);
-
+app.use(authRoutes);
+app.use(shopRoutes);
 
 
 app.listen(3001);
