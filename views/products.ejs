@@ -1,0 +1,43 @@
+<%- include('./partials/head') %>
+    <link rel="stylesheet" href="/styles/navigation.css">
+    <link rel="stylesheet" href="/styles/products.css">
+</head>
+
+<body>
+<%- include('./partials/navigation') %>
+<div class="container">
+    <main class="products-page">
+        <div class="products-header">
+            <h1 class="products-title">Our Products</h1>
+            <p class="products-subtitle">Discover our amazing collection</p>
+        </div>
+        
+        <% if (prods && prods.length > 0) { %>
+            <div class="products-grid">
+                <% prods.forEach(product => { %>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <%= product.title %>
+                        </div>
+                        <div class="product-content">
+                            <h2 class="product-title"><%= product.title %></h2>
+                            <p class="product-price">$<%= product.price.toFixed(2) %></p>
+                            <p class="product-description"><%= product.description %></p>
+                            <div class="product-actions">
+                                <a href="/products/<%= product._id %>" class="btn btn-primary">View Details</a>
+                                <button class="btn btn-secondary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="no-products">
+                <h2>No Products Found</h2>
+                <p>Check back later for new products!</p>
+                <a href="/admin/add-product" class="btn btn-primary">Add First Product</a>
+            </div>
+        <% } %>
+    </main>
+</div>
+<%- include('./partials/end') %>
