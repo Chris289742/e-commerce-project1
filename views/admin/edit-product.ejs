@@ -1,0 +1,45 @@
+<%- include('../partials/head') %>
+    <link rel="stylesheet" href="/styles/navigation.css">
+    <link rel="stylesheet" href="/styles/add-product.css">
+</head>
+<body>
+    <%- include('../partials/navigation') %>
+    <div class="add-product-page">
+        <div class="add-product-container">
+            <form class="add-product-form" action="<%= editing === "true" ? "/admin/edit-product" : "/admin/add-product" %>" method="POST">
+                <div class="form-header">
+                    <h1 class="form-title"><%= editing === "true" ? "Edit Your Product" : "Add New Product"%></h1>
+                    <% if (editing === "true") { %>
+                        <p class="form-subtitle">Update your product details</p>
+                    <% } else { %>
+                        <p class="form-subtitle">Create a new product for your store</p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="title">Product Title</label>
+                    <input class="form-control" type="text" id="title" name="title" required placeholder="Enter product title" value="<% if (editing === "true") { %><%= product.title %><% } %>">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="price">Price ($)</label>
+                    <input class="form-control" type="number" id="price" name="price" step="0.01" required placeholder="0.00" value="<% if (editing === "true") { %><%= product.price %><% } %>">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" required placeholder="Enter product description..."><% if (editing === "true") { %><%= product.description %><% } %></textarea>
+                </div>
+
+                <% if (editing === "true") { %>
+                    <input type="hidden" value="<%= product._id %>" name="productId">
+                <% } %>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-submit"><%= editing === "true" ? "Update Product" : "Add Product" %></button>
+                    <a href="/admin/products" class="btn btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+<%- include('../partials/end') %>
