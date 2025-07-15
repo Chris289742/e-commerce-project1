@@ -1,9 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import session from "express-session";
+import MongoDBStore from "connect-mongodb-session";
+import flash from "connect-flash";
 import adminRoutes from "./routes/admin.js";
 import authRoutes from "./routes/auth.js";
 import shopRoutes from "./routes/shop.js";
+
+const MongoDBStoreSession = MongoDBStore(session);
 
 const app = express();
 
@@ -23,9 +28,47 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
+const store = new MongoDBStoreSession({
+    uri: process.env.MONGODB_URI,
+    collection: "sessions",
+});
+
+app.use(
+    session({
+        secret: "my secret",
+        resave: false,
+        saveUninitialized: false,
+        store: store,
+    })
+);
+
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn; 
+    //~ Set local variables for this specific request.
+    //~ These values will be accessible in the template rendered by res.render().
+    next();
+});
+
 app.use("/admin", adminRoutes);
 app.use(authRoutes);
 app.use(shopRoutes);
 
+// Root route redirect
+app.get("/", (req, res) => {
+    res.redirect("/products");
+});
 
-app.listen(3001);
+// 404 handler
+app.use((req, res) => {
+    res.status(404).render("error", {
+        pageTitle: "404 Not Found",
+        message: "Page not found",
+    });
+});
+
+app.listen(3001, () => {
+    console.log("Server is running on port 3001");
+});
