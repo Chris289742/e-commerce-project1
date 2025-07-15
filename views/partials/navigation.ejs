@@ -3,15 +3,27 @@
         <div class="navbar-nav">
             <ul>
                 <li><a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Products</a></li>
-                <li><a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a></li>
-                <li><a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a></li>
+                <% if (isAuthenticated) { %>
+                    <li><a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a></li>
+                    <li><a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a></li>
+                <% } %>
             </ul>
         </div>
         <div class="navbar-nav">
             <ul>
-                <li><a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a></li>
-                <li><a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products</a></li>
-                <li><a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a></li>
+                <% if (isAuthenticated) { %>
+                    <li><a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a></li>
+                    <li><a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products</a></li>
+                    <li>
+                        <form action="/logout" method="POST" style="display: inline;">
+                            <button type="submit" style="background: none; border: none; color: var(--white); font-weight: 500; padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); transition: all 0.2s ease; font-size: var(--font-size-base); cursor: pointer;">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                <% } else { %>
+                    <li><a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a></li>
+                <% } %>
             </ul>
         </div>
     </div>
