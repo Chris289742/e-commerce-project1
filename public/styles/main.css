@@ -358,3 +358,28 @@ textarea.form-control {
     h2 { font-size: var(--font-size-lg); }
     h3 { font-size: var(--font-size-base); }
 }
+
+/* Global Validation Error Styles */
+.form-label.error {
+    color: #dc3545 !important;
+}
+
+.form-control.invalid,
+.form-control.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1) !important;
+}
+
+.form-control.invalid:focus,
+.form-control.is-invalid:focus {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25) !important;
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+    font-weight: 400;
+}

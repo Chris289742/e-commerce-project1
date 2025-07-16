@@ -1,14 +1,5 @@
 <%- include('../partials/head') %>
-    <link rel="stylesheet" hre                       value="<%= locals.oldInput && oldInput.confirmPassword ? oldInput.confirmPassword : '' %>"
-                       autocomplete="new-password">
-                <% 
-                const confirmPasswordError = validationErrors.find(e => e.path === 'confirmPassword');
-                if (confirmPasswordError) { %>
-                    <span class="field-error"><%= confirmPasswordError.msg %></span>
-                <% } %>
-            </div>
-
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">"tyles/navigation.css">
+    <link rel="stylesheet" href="/styles/navigation.css">
     <link rel="stylesheet" href="/styles/login.css">
 </head>
 
@@ -22,7 +13,7 @@
                 <p class="login-subtitle">Sign up for a new account</p>
             </div>
 
-            <% if (errorMessage) { %>
+            <% if (locals.errorMessage && errorMessage) { %>
                 <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
                     <%= errorMessage %>
                 </div>
@@ -74,6 +65,11 @@
                        minlength="6"
                        value="<%= locals.oldInput && oldInput.confirmPassword ? oldInput.confirmPassword : '' %>"
                        autocomplete="new-password">
+                <% 
+                const confirmPasswordError = validationErrors.find(e => e.path === 'confirmPassword');
+                if (confirmPasswordError) { %>
+                    <span class="field-error"><%= confirmPasswordError.msg %></span>
+                <% } %>
             </div>
 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">

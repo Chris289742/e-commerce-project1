@@ -30,11 +30,11 @@ const userSchema = new mongoose.Schema({
 });
 // instance methods for user schema
 userSchema.methods.addToCart = function (product) { 
-    const cartProductIndex = this.cart.items.findIndex((cp) => {
+    const cartProductIndex = this.cart.items.findIndex((cp) => { // check if product already exists in cart //~ if no product found, return -1
         return cp.productId.toString() === product._id.toString();
     });
     let newQuantity = 1;
-    const updatedCartItems = [...this.cart.items];
+    const updatedCartItems = [...this.cart.items]; //~ spread syntax to create a new array
 
     if (cartProductIndex >= 0) {
         newQuantity = this.cart.items[cartProductIndex].quantity + 1;
@@ -42,7 +42,7 @@ userSchema.methods.addToCart = function (product) {
     } else {
         updatedCartItems.push({
             productId: product._id,
-            quantity: newQuantity,
+            quantity: 1,
         });
     }
     const updatedCart = {

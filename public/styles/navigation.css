@@ -58,6 +58,26 @@
     background-color: var(--primary-hover);
 }
 
+/* Logout Button Styling */
+.navbar-logout {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+}
+
+.navbar-logout:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+}
+
 /* Mobile Navigation */
 @media (max-width: 768px) {
     .navbar-container {
@@ -82,6 +102,11 @@
     }
     
     .navbar-nav a {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    .navbar-logout {
         padding: var(--spacing-xs) var(--spacing-sm);
         font-size: var(--font-size-sm);
     }
