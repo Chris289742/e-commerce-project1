@@ -1,23 +1,21 @@
 import nodemailer from 'nodemailer';
-import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
+import AWS from 'aws-sdk';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 
-// 1. Configure the AWS SDK client (uses default credential chain if omitted)
-const sesClient = new SESv2Client({
-  region: "ap-southeast-2",
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  }
+AWS.config.update({
+  region: 'ap-southeast-2',
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-// 2. Create a Nodemailer transport that points at SES
-const transporter = nodemailer.createTransport({
-  SES: { sesClient, SendEmailCommand },
-});
+const ses = new AWS.SES({ apiVersion: '2010-12-01' });
+
+const transporter = nodemailer.createTransport({ SES: ses });
+
+
 
 /**
  * Send welcome email to new user
