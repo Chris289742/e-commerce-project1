@@ -16,7 +16,8 @@
                     <li><a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products</a></li>
                     <li>
                         <form action="/logout" method="POST" style="display: inline;">
-                            <button type="submit" style="background: none; border: none; color: var(--white); font-weight: 500; padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--border-radius); transition: all 0.2s ease; font-size: var(--font-size-base); cursor: pointer;">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button type="submit" class="navbar-logout">
                                 Logout
                             </button>
                         </form>

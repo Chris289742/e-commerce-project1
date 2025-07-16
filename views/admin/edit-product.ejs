@@ -35,6 +35,8 @@
                     <input type="hidden" value="<%= product._id %>" name="productId">
                 <% } %>
 
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary btn-submit"><%= editing === "true" ? "Update Product" : "Add Product" %></button>
                     <a href="/admin/products" class="btn btn-cancel">Cancel</a>

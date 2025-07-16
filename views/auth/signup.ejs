@@ -1,5 +1,14 @@
 <%- include('../partials/head') %>
-    <link rel="stylesheet" href="/styles/navigation.css">
+    <link rel="stylesheet" hre                       value="<%= locals.oldInput && oldInput.confirmPassword ? oldInput.confirmPassword : '' %>"
+                       autocomplete="new-password">
+                <% 
+                const confirmPasswordError = validationErrors.find(e => e.path === 'confirmPassword');
+                if (confirmPasswordError) { %>
+                    <span class="field-error"><%= confirmPasswordError.msg %></span>
+                <% } %>
+            </div>
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">"tyles/navigation.css">
     <link rel="stylesheet" href="/styles/login.css">
 </head>
 
@@ -20,7 +29,7 @@
             <% } %>
 
             <div class="form-group">
-                <label class="form-label" for="email">Email</label>
+                <label class="form-label <%= validationErrors.find(e => e.path === 'email') ? 'error' : '' %>" for="email">Email</label>
                 <input class="form-control <%= validationErrors.find(e => e.path === 'email') ? 'is-invalid' : '' %>" 
                        type="email" 
                        id="email" 
@@ -29,10 +38,15 @@
                        placeholder="Enter your email"
                        value="<%= locals.oldInput && oldInput.email ? oldInput.email : '' %>"
                        autocomplete="email">
+                <% 
+                const emailError = validationErrors.find(e => e.path === 'email');
+                if (emailError) { %>
+                    <span class="field-error"><%= emailError.msg %></span>
+                <% } %>
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="password">Password</label>
+                <label class="form-label <%= validationErrors.find(e => e.path === 'password') ? 'error' : '' %>" for="password">Password</label>
                 <input class="form-control <%= validationErrors.find(e => e.path === 'password') ? 'is-invalid' : '' %>" 
                        type="password" 
                        id="password" 
@@ -42,10 +56,15 @@
                        minlength="6"
                        value="<%= locals.oldInput && oldInput.password ? oldInput.password : '' %>"
                        autocomplete="new-password">
+                <% 
+                const passwordError = validationErrors.find(e => e.path === 'password');
+                if (passwordError) { %>
+                    <span class="field-error"><%= passwordError.msg %></span>
+                <% } %>
             </div>
 
             <div class="form-group">
-                <label class="form-label" for="confirmPassword">Confirm Password</label>
+                <label class="form-label <%= validationErrors.find(e => e.path === 'confirmPassword') ? 'error' : '' %>" for="confirmPassword">Confirm Password</label>
                 <input class="form-control <%= validationErrors.find(e => e.path === 'confirmPassword') ? 'is-invalid' : '' %>" 
                        type="password" 
                        id="confirmPassword" 
@@ -57,6 +76,8 @@
                        autocomplete="new-password">
             </div>
 
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            
             <div class="login-actions">
                 <button type="submit" class="btn btn-primary btn-login">Sign Up</button>
             </div>
